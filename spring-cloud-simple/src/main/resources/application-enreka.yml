@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: eureka-client    # 项目名称尽量用小写
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://username:password@localhost:8761/eureka    # 指定注册中心的地址
+#      defaultZone: http://master:7998/eureka/,http://backup:7999/eureka/,http://backup1:7997/eureka/  # 集群配置
+  instance:
+    preferIpAddress: true
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+  server:
+    name: eureka-server

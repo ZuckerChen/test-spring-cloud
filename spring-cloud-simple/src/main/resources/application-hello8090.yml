@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: hello8090
+
+server:
+  port: 8090
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://username:password@localhost:8761/eureka    # 指定注册中心的地址
