@@ -1,9 +1,14 @@
 package client;
 
+import com.netflix.appinfo.ApplicationInfoManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
@@ -22,23 +27,35 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 //@EnableDiscoveryClient
 public class EurekaClientAppication {
-
-    @Bean
-    @LoadBalanced
-    RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
-    @Value("${eureka.server.name}")
-    private String eurekaServer;
+    private final Logger logger = Logger.getLogger(getClass());
 
     @Autowired
-    RestTemplate restTemplate;
+    private DiscoveryClient client;
 
+//    @Bean
+//    @LoadBalanced
+//    RestTemplate restTemplate() {
+//        return new RestTemplate();
+//    }
+//
+//    @Value("${eureka.server.name}")
+//    private String eurekaServer;
+//
+//    @Autowired
+//    RestTemplate restTemplate;
+//
+//
+//    @RequestMapping(value = "/{user}")
+//    public String home(@PathVariable("user") String user) {
+//        return restTemplate.getForEntity("http://" +eurekaServer + "/ribbon/" + user, String.class).getBody();
+//    }
 
-    @RequestMapping(value = "/{user}")
-    public String home(@PathVariable("user") String user) {
-        return restTemplate.getForEntity("http://" +eurekaServer + "/ribbon/" + user, String.class).getBody();
+    @RequestMapping("/hello")
+    public String hello() {
+        ServiceInstance instance = client.getLocalServiceInstance();
+
+        logger.info("/hello, host:" + instance.getHost() + "， service id:" + instance.getServiceId());
+        return "rep: hello!";
     }
 
     public static void main(String[] args) {

@@ -1,8 +1,9 @@
-server:
-  port: 8000
-spring:
-  profiles:
-    active: hello9092
+debug: true
+#server:
+#  port: 8000
+#spring:
+#  profiles:
+#    active: hello9092
 #
 #say-hello:
 #  ribbon:

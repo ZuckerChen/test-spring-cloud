@@ -1,0 +1,34 @@
+debug: true
+
+spring:
+  application:
+    name: simple
+  cloud:
+    config:
+      profile: dev
+      label: config-lable-test
+      uri: http://localhost:8888/
+      discovery:
+        enabled: true
+        service-id: config-server
+      fail-fast: true  #config获取快速失败
+
+#RabbitMQ信息
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+management:
+  security:
+    enabled: false
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://username:password@localhost:8761/eureka    # 指定注册中心的地址
+
+server:
+  port: 9999
+
+
+

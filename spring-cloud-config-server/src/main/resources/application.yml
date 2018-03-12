@@ -1,10 +1,22 @@
 spring:
-  config:
-    name:
-      configserver
-
+  application:
+    name: config-server
   cloud:
     config:
       server:
         git:
-          uri:https://github.com/ZuckerChen/config-repo
+          uri: https://github.com/ZuckerChen/config-repo
+#mq配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+server:
+  port: 8888
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://username:password@localhost:8761/eureka    # 指定注册中心的地址
